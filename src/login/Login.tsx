@@ -5,9 +5,8 @@ const Container = styled.div`
   color: black;
 `;
 
-interface Props {
-}
+interface Props {}
 
-export const WaitingRoom: FC<Props> = () => {
+export const Login: FC<Props> = () => {
   return <Container>heather is cute af from home</Container>;
 };

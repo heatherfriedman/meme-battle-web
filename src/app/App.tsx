@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { WaitingRoom } from '../home/WaitingRoom';
+import { Login } from '../login/Login';
 import { GlobalStyles } from './GlobalStyles';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       <Router>
         <Switch>
           <Route path='/'>
-            <WaitingRoom />
+            <Login />
           </Route>
         </Switch>
       </Router>
