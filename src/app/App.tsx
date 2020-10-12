@@ -1,21 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import { Login } from '../login/Login';
+import { store, history } from '../store/store';
 import { GlobalStyles } from './GlobalStyles';
+import { WaitingRoom } from '../waitingRoom/WaitingRoom';
 
-function App() {
-  return (
-    <>
-      <GlobalStyles />
-      <Router>
-        <Switch>
-          <Route path='/'>
-            <Login />
-          </Route>
-        </Switch>
-      </Router>
-    </>
-  );
-}
-
-export default App;
+export const App = () => (
+  <Provider store={store}>
+    <GlobalStyles />
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Route path='/waiting-room'>
+          <WaitingRoom />
+        </Route>
+        <Route path='/'>
+          <Login />
+        </Route>
+      </Switch>
+    </ConnectedRouter>
+  </Provider>
+);

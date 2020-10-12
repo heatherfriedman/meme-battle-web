@@ -4,9 +4,10 @@ module.exports = {
     jest: true,
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['jest', '@typescript-eslint', 'prettier'],
+  plugins: ['jest', '@typescript-eslint', 'react-hooks', 'prettier'],
   extends: [
-    'airbnb-base',
+    'react-app',
+    'airbnb-typescript',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
@@ -23,9 +24,13 @@ module.exports = {
   },
   rules: {
     'import/extensions': 0,
+    'no-use-before-define': 0,
     'object-curly-spacing': ['warn', 'always'],
     '@typescript-eslint/indent': 0,
+    '@typescript-eslint/no-use-before-define': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 0,
     'no-unused-vars': 0,
+    '@typescript-eslint/no-empty-interface': 0,
     '@typescript-eslint/no-unused-vars': [
       'warn',
       {
@@ -43,5 +48,7 @@ module.exports = {
     'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
     'import/no-default-export': 1,
     'import/prefer-default-export': 0,
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   },
 };

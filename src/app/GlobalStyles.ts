@@ -1,7 +1,7 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components/macro';
 
 export const GlobalStyles = createGlobalStyle`
-body {
-    background-color: lightblue;
+html, body, #root {
+    height: 100%;
 }
 `;
