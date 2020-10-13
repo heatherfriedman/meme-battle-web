@@ -12,6 +12,7 @@ export const App = () => (
     <GlobalStyles />
     <ConnectedRouter history={history}>
       <Switch>
+        <Route path='/main-game'>HERE IS THE MAIN GAME</Route>
         <Route path='/waiting-room'>
           <WaitingRoom />
         </Route>
