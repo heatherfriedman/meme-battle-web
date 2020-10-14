@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useState, ChangeEvent, FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
-import { push } from 'connected-react-router';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { actions } from './slice';
 
 const Container = styled.div`
@@ -27,6 +27,7 @@ const SubmitButton = styled.input.attrs({
 interface Props {}
 
 export const Login: FC<Props> = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [name, setName] = useState('');
 
@@ -39,9 +40,9 @@ export const Login: FC<Props> = () => {
       e.preventDefault();
       dispatch(actions.logIn({ username: name }));
       console.log("form submitted per Alex's request");
-      dispatch(push('/waiting-room'));
+      history.push('/waiting-room');
     },
-    [dispatch, name],
+    [dispatch, history, name],
   );
 
   return (

@@ -1,7 +1,7 @@
 import React, { FC, useCallback, FormEvent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import { push } from 'connected-react-router';
+import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
   color: black;
@@ -23,12 +23,15 @@ const SubmitButton = styled.input.attrs({
 })``;
 
 export const WaitingRoom: FC = () => {
-  const dispatch = useDispatch();
+  const history = useHistory();
   const username = useSelector(state => state.login.username);
-  const handleReadySubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(push('/main-game'));
-  }, []);
+  const handleReadySubmit = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      history.push('/game-room');
+    },
+    [history],
+  );
   return (
     <Container>
       {username} is waiting!
