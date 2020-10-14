@@ -1,7 +1,8 @@
-import React, { FC, useCallback, useState, ChangeEvent, FormEvent } from 'react';
+import React, { FC, useCallback, useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import io from 'socket.io-client';
 import { actions } from './slice';
 
 const Container = styled.div`
@@ -44,6 +45,15 @@ export const Login: FC<Props> = () => {
     },
     [dispatch, history, name],
   );
+
+  useEffect(() => {
+    type Event = 'set username' | 'remove username';
+
+    const socket = io.connect('http://localhost:3001');
+    const event: Event = 'set username';
+
+    socket.emit(event, 'Alex');
+  }, []);
 
   return (
     <Container>
