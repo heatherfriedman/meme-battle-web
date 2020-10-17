@@ -1,7 +1,14 @@
-import React, { FC, useCallback, useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import React, {
+  FC,
+  useCallback,
+  useState,
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+} from 'react';
 import styled from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import io from 'socket.io-client';
 import { actions } from './slice';
 
@@ -32,9 +39,15 @@ export const Login: FC<Props> = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
 
-  const handleOnChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  }, []);
+  const count = useSelector(state => state.login.count);
+  const validName = useSelector(state => state.login.name);
+
+  const handleOnChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setName(e.target.value);
+    },
+    [],
+  );
 
   const handleFormSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
@@ -62,6 +75,8 @@ export const Login: FC<Props> = () => {
         <Input value={name} onChange={handleOnChange} />
         <SubmitButton />
       </Form>
+      <div>{count}</div>
+      <div>{validName}</div>
     </Container>
   );
 };
