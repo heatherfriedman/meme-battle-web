@@ -1,5 +1,6 @@
-import { delay, fork, put } from 'redux-saga/effects';
+import { delay, fork, put, take } from 'redux-saga/effects';
 import { actions, ValidName } from '../login/slice';
+import { socketSaga } from '../socketSaga';
 
 function* counterSaga() {
   const validNames: ValidName[] = [
@@ -26,4 +27,5 @@ function* counterSaga() {
 
 export function* rootSaga() {
   yield fork(counterSaga);
+  yield fork(socketSaga);
 }

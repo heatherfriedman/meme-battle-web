@@ -60,12 +60,10 @@ export const Login: FC<Props> = () => {
   );
 
   useEffect(() => {
-    type Event = 'set username' | 'remove username';
-
-    const socket = io.connect('http://localhost:3001');
-    const event: Event = 'set username';
-
-    socket.emit(event, 'Alex');
+    // type Event = 'set username' | 'remove username';
+    // const socket = io.connect('http://localhost:3001');
+    // const event: Event = 'set username';
+    // socket.emit(event, 'Alex');
   }, []);
 
   return (
