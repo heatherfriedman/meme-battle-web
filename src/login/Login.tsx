@@ -4,12 +4,9 @@ import React, {
   useState,
   ChangeEvent,
   FormEvent,
-  useEffect,
 } from 'react';
 import styled from 'styled-components/macro';
-import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import io from 'socket.io-client';
 import { actions } from './slice';
 
 const Container = styled.div`
@@ -35,13 +32,12 @@ const SubmitButton = styled.input.attrs({
 interface Props {}
 
 export const Login: FC<Props> = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const [name, setName] = useState('');
 
-  const count = useSelector(state => state.login.count);
-  const validName = useSelector(state => state.login.name);
-
+  const isEnteringWaitingRoom = useSelector(
+    state => state.login.isEnteringWaitingRoom,
+  );
   const handleOnChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       setName(e.target.value);
@@ -52,29 +48,19 @@ export const Login: FC<Props> = () => {
   const handleFormSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      dispatch(actions.logIn({ username: name }));
-      console.log("form submitted per Alex's request");
-      history.push('/waiting-room');
+      dispatch(actions.enterWaitingRoomStart({ name }));
     },
-    [dispatch, history, name],
+    [dispatch, name],
   );
-
-  useEffect(() => {
-    // type Event = 'set username' | 'remove username';
-    // const socket = io.connect('http://localhost:3001');
-    // const event: Event = 'set username';
-    // socket.emit(event, 'Alex');
-  }, []);
 
   return (
     <Container>
       <Form onSubmit={handleFormSubmit}>
-        <Label>Name:</Label>
+        <Label>Username:</Label>
         <Input value={name} onChange={handleOnChange} />
-        <SubmitButton />
+        {!isEnteringWaitingRoom && <SubmitButton />}
+        {isEnteringWaitingRoom && <div>LOADING...</div>}
       </Form>
-      <div>{count}</div>
-      <div>{validName}</div>
     </Container>
   );
 };

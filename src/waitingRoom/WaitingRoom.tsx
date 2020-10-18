@@ -24,7 +24,7 @@ const SubmitButton = styled.input.attrs({
 
 export const WaitingRoom: FC = () => {
   const history = useHistory();
-  const username = useSelector(state => state.login.username);
+  const username = useSelector(state => state.login.user);
   const handleReadySubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();

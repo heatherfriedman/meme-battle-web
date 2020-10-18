@@ -1,31 +1,11 @@
-import { delay, fork, put, take } from 'redux-saga/effects';
-import { actions, ValidName } from '../login/slice';
-import { socketSaga } from '../socketSaga';
+import { fork } from 'redux-saga/effects';
 
-function* counterSaga() {
-  const validNames: ValidName[] = [
-    'alex',
-    'heather',
-    'sawyer',
-    'luna',
-    'tycho',
-  ];
-  let index = 0;
-  let n = 1;
-  while (true) {
-    yield put(actions.incrementByN({ n }));
-    yield put(
-      actions.updateName({
-        newName: validNames[index % validNames.length],
-      }),
-    );
-    yield delay(1000);
-    index += 1;
-    n += 1;
-  }
-}
+import {
+  inboundSocketSaga,
+  outboundSocketSaga,
+} from '../sockets/sagas';
 
 export function* rootSaga() {
-  yield fork(counterSaga);
-  yield fork(socketSaga);
+  yield fork(inboundSocketSaga);
+  yield fork(outboundSocketSaga);
 }

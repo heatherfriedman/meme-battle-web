@@ -1,55 +1,45 @@
 import {
   createSlice,
   PayloadAction,
+  ExtractActions,
 } from '@reduxjs/toolkit';
+import { User } from 'meme-battle';
 
 interface InitialLoginState {
-  username: string | null;
-  count: number;
-  name: ValidName;
+  user: User | null;
+  isEnteringWaitingRoom: boolean;
+  errorEnteringWaitingRoom: boolean;
 }
 
 const initialState: InitialLoginState = {
-  username: null,
-  count: 0,
-  name: 'heather',
+  user: null,
+  isEnteringWaitingRoom: false,
+  errorEnteringWaitingRoom: false,
 };
-
-export type ValidName =
-  | 'heather'
-  | 'sawyer'
-  | 'alex'
-  | 'luna'
-  | 'tycho';
 
 const slice = createSlice({
   name: 'login',
   initialState,
   reducers: {
-    logIn(
+    enterWaitingRoomStart(
       state,
-      action: PayloadAction<{ username: string }>,
+      _action: PayloadAction<{ name: string }>,
     ) {
-      state.username = action.payload.username;
+      state.isEnteringWaitingRoom = true;
     },
-    incrementByOne(state) {
-      state.count += 1;
-    },
-    incrementByN(
+    enterWaitingRoomSuccess(
       state,
-      action: PayloadAction<{ n: number }>,
+      action: PayloadAction<{ user: User }>,
     ) {
-      const { n } = action.payload;
-      state.count += n;
+      state.isEnteringWaitingRoom = false;
+      state.user = action.payload.user;
     },
-    updateName(
-      state,
-      action: PayloadAction<{ newName: ValidName }>,
-    ) {
-      const { newName } = action.payload;
-      state.name = newName;
+    enterWaitingRoomFailure(state) {
+      state.isEnteringWaitingRoom = false;
+      state.errorEnteringWaitingRoom = true;
     },
   },
 });
 
 export const { actions, reducer, name } = slice;
+export type Actions = ExtractActions<typeof actions>;
