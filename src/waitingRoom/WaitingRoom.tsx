@@ -34,7 +34,8 @@ export const WaitingRoom: FC = () => {
   );
   return (
     <Container>
-      {username} is waiting!
+      {username}
+      is waiting!
       <Form onSubmit={handleReadySubmit}>
         Ready?
         <SubmitButton />

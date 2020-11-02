@@ -1,19 +1,13 @@
-import { takeEvery, put, take } from 'redux-saga/effects';
-import { actions, Actions } from './slice';
-import { sendSocket } from './actions';
+import { put, take } from 'redux-saga/effects';
+import { sendSocket } from '../sockets/actions';
+import { Actions } from './slice';
 
-function* watchEnterWaitingRoomSaga() {
-  yield takeEvery(
-    actions.enterWaitingRoomStart,
-    enterWaitingRoomSaga,
-  );
-}
-
-function* enterWaitingRoomSaga(
+export function* enterWaitingRoomSaga(
   action: Actions['enterWaitingRoomStart'],
 ) {
-  // 1) send a socket to the server containing the username we just entered
+  debugger;
 
+  // 1) send a socket to the server containing the username we just entered
   yield put(
     sendSocket({
       event: 'enter waiting room',
@@ -27,6 +21,10 @@ function* enterWaitingRoomSaga(
     'enter waiting room success',
     'enter waiting room failure',
   ]);
+
+  console.log(payload);
+
+  debugger;
 
   // 2) wait for the server to respond... it responds with a socket event with a new User
   // 3) when we hear the socket response, we dispatch an action to update our UI

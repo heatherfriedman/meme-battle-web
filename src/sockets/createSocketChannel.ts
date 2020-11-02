@@ -8,11 +8,11 @@ export const createSocketChannel = (socket: Socket) =>
     console.log(socket);
 
     const handler = (event: any) => {
+      debugger;
       emit(event);
     };
 
-    socket.on('thanks lol', handler);
-    socket.on('', handler);
+    socket.on('enter waiting room success', handler);
 
     return () => {
       socket.disconnect();

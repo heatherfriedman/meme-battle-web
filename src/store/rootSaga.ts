@@ -1,11 +1,8 @@
 import { fork } from 'redux-saga/effects';
-
-import {
-  inboundSocketSaga,
-  outboundSocketSaga,
-} from '../sockets/sagas';
+import { watchSaga as socketWatchSaga } from '../sockets/watchSaga';
+import { watchSaga as loginWatchSaga } from '../login/watchSaga';
 
 export function* rootSaga() {
-  yield fork(inboundSocketSaga);
-  yield fork(outboundSocketSaga);
+  yield fork(socketWatchSaga);
+  yield fork(loginWatchSaga);
 }
