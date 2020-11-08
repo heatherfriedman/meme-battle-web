@@ -6,7 +6,6 @@ export function* outboundSocketSaga() {
   while (true) {
     try {
       const action = yield take(sendSocket);
-      debugger;
       const { event, eventPayload } = action.payload;
       yield apply(socket, socket.emit, [
         event,

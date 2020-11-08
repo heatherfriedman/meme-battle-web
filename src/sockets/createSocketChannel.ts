@@ -1,18 +1,23 @@
 import { eventChannel } from 'redux-saga';
 import io from 'socket.io-client';
+import { subscribeToSocketHandler as loginSubscribe } from '../login/subscribeToSocketHandler';
+import { Socket } from './socket';
+import { SocketHandler } from './SocketHandler';
 
-export type Socket = ReturnType<typeof io.connect>;
+const subscribes = [loginSubscribe];
 
 export const createSocketChannel = (socket: Socket) =>
   eventChannel(emit => {
     console.log(socket);
 
-    const handler = (event: any) => {
+    const handler: SocketHandler = event => {
       debugger;
       emit(event);
     };
 
-    socket.on('enter waiting room success', handler);
+    subscribes.forEach(subscribe =>
+      subscribe(socket, handler),
+    );
 
     return () => {
       socket.disconnect();
