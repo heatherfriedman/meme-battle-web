@@ -1,5 +1,6 @@
-import { put, take } from 'redux-saga/effects';
+import { put, take, getContext } from 'redux-saga/effects';
 import { Action } from '@reduxjs/toolkit';
+import { History } from 'history';
 import { sendSocket } from '../sockets/actions';
 import { Actions, actions } from './slice';
 
@@ -21,13 +22,9 @@ export function* enterWaitingRoomSaga(
     'login/enterWaitingRoomFailure',
   ]);
 
-  console.log(actions.enterWaitingRoomSuccess.type);
-  debugger;
-  if (
-    actions.enterWaitingRoomSuccess.match(responseAction)
-  ) {
-    debugger;
-    console.log('time to navigate to the waiting room');
+  if (actions.enterWaitingRoomSuccess.match(responseAction)) {
+    const history: History = yield getContext('history');
+    history.push('/waiting-room');
   } else {
     console.error('whoops lol');
   }

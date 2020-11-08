@@ -11,13 +11,10 @@ export const createSocketChannel = (socket: Socket) =>
     console.log(socket);
 
     const handler: SocketHandler = event => {
-      debugger;
       emit(event);
     };
 
-    subscribes.forEach(subscribe =>
-      subscribe(socket, handler),
-    );
+    subscribes.forEach(subscribe => subscribe(socket, handler));
 
     return () => {
       socket.disconnect();

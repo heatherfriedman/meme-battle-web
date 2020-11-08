@@ -1,15 +1,15 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, Router } from 'react-router-dom';
 import { Login } from '../login/Login';
-import { store } from '../store/store';
+import { store, history } from '../store/store';
 import { GlobalStyles } from './GlobalStyles';
 import { WaitingRoom } from '../waitingRoom/WaitingRoom';
 
 export const App = () => (
   <Provider store={store}>
     <GlobalStyles />
-    <BrowserRouter>
+    <Router history={history}>
       <Switch>
         <Route path='/game-room'>HERE IS THE MAIN GAME</Route>
         <Route path='/waiting-room'>
@@ -19,6 +19,6 @@ export const App = () => (
           <Login />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   </Provider>
 );
