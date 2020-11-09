@@ -2,7 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Switch, Route, Router } from 'react-router-dom';
 import { Login } from '../login/Login';
-import { store, history } from '../store/store';
+import { store } from '../store/store';
+import { history } from '../store/history';
 import { GlobalStyles } from './GlobalStyles';
 import { WaitingRoom } from '../waitingRoom/WaitingRoom';
 

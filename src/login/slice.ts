@@ -1,5 +1,8 @@
-import { createSlice, PayloadAction, ExtractActions } from '@reduxjs/toolkit';
-import { User } from 'meme-battle';
+import { ExtractActions, createReducer } from '@reduxjs/toolkit';
+import { User } from 'meme-battle-core';
+import * as actions from './actions';
+
+const name = 'login';
 
 interface InitialLoginState {
   user: User | null;
@@ -13,24 +16,20 @@ const initialState: InitialLoginState = {
   errorEnteringWaitingRoom: false,
 };
 
-const slice = createSlice({
-  name: 'login',
-  initialState,
-  reducers: {
-    enterWaitingRoomStart(state, _action: PayloadAction<{ name: string }>) {
+const reducer = createReducer(initialState, builder => {
+  builder
+    .addCase(actions.enterWaitingRoomStart, state => {
       state.isEnteringWaitingRoom = true;
-    },
-    enterWaitingRoomSuccess(state, action: PayloadAction<{ user: User }>) {
-      debugger;
+    })
+    .addCase(actions.enterWaitingRoomSuccess, (state, action) => {
       state.isEnteringWaitingRoom = false;
       state.user = action.payload.user;
-    },
-    enterWaitingRoomFailure(state) {
+    })
+    .addCase(actions.enterWaitingRoomFailure, state => {
       state.isEnteringWaitingRoom = false;
       state.errorEnteringWaitingRoom = true;
-    },
-  },
+    });
 });
 
-export const { actions, reducer, name } = slice;
+export { actions, reducer, name };
 export type Actions = ExtractActions<typeof actions>;

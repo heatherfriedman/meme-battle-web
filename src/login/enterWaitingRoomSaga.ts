@@ -1,6 +1,11 @@
-import { put, take, getContext } from 'redux-saga/effects';
+import { put, take } from 'redux-saga/effects';
 import { Action } from '@reduxjs/toolkit';
-import { History } from 'history';
+import {
+  enterWaitingRoomStart,
+  enterWaitingRoomSuccess,
+  enterWaitingRoomFailure,
+} from 'meme-battle-core';
+import { history } from '../store/history';
 import { sendSocket } from '../sockets/actions';
 import { Actions, actions } from './slice';
 
@@ -10,7 +15,7 @@ export function* enterWaitingRoomSaga(
   // 1) send a socket to the server containing the username we just entered
   yield put(
     sendSocket({
-      event: 'enter waiting room',
+      event: enterWaitingRoomStart,
       eventPayload: {
         username: action.payload.name,
       },
@@ -18,12 +23,11 @@ export function* enterWaitingRoomSaga(
   );
 
   const responseAction: Action = yield take([
-    'login/enterWaitingRoomSuccess',
-    'login/enterWaitingRoomFailure',
+    enterWaitingRoomSuccess,
+    enterWaitingRoomFailure,
   ]);
 
   if (actions.enterWaitingRoomSuccess.match(responseAction)) {
-    const history: History = yield getContext('history');
     history.push('/waiting-room');
   } else {
     console.error('whoops lol');

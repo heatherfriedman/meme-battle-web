@@ -1,16 +1,9 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import { createBrowserHistory } from 'history';
 import { rootReducer } from './rootReducer';
 import { rootSaga } from './rootSaga';
 
-export const history = createBrowserHistory();
-
-const sagaMiddleware = createSagaMiddleware({
-  context: {
-    history,
-  },
-});
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
   reducer: rootReducer,
